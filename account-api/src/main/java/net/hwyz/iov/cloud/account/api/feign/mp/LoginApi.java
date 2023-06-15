@@ -13,18 +13,20 @@ public interface LoginApi {
     /**
      * 发送登录验证码
      *
-     * @param mobile 手机号
+     * @param countryRegionCode 国家或地区代码
+     * @param mobile            手机号
      * @return 操作结果
      */
-    Response<Void> sendVerifyCode(String mobile);
+    Response<Void> sendVerifyCode(String countryRegionCode, String mobile);
 
     /**
      * 验证码登录
      *
-     * @param mobile     手机号
-     * @param verifyCode 登录验证码
+     * @param countryRegionCode 国家或地区代码
+     * @param mobile            手机号
+     * @param verifyCode        登录验证码
      * @return 登录结果
      */
-    Response<LoginResponse> verifyCodeLogin(String mobile, String verifyCode);
+    Response<LoginResponse> verifyCodeLogin(String countryRegionCode, String mobile, String verifyCode);
 
 }

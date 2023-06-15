@@ -23,15 +23,16 @@ public class LoginController implements LoginApi {
 
     @Override
     @PostMapping(value = "/sendVerifyCode")
-    public Response<Void> sendVerifyCode(@RequestParam String mobile) {
-        logger.info("向手机[{}]发送登录验证码", mobile);
+    public Response<Void> sendVerifyCode(@RequestParam String countryRegionCode, @RequestParam String mobile) {
+        logger.info("向手机[{}:{}]发送登录验证码", countryRegionCode, mobile);
         return new Response<>();
     }
 
     @Override
     @PostMapping(value = "/verifyCodeLogin")
-    public Response<LoginResponse> verifyCodeLogin(@RequestParam String mobile, @RequestParam String verifyCode) {
-        logger.info("手机[{}]通过验证码[{}]登录", mobile, verifyCode);
+    public Response<LoginResponse> verifyCodeLogin(@RequestParam String countryRegionCode, @RequestParam String mobile,
+                                                   @RequestParam String verifyCode) {
+        logger.info("手机[{}:{}]通过验证码[{}]登录", countryRegionCode, mobile, verifyCode);
         LoginResponse loginResponse = LoginResponse.builder().mobile(mobile).token("123456").build();
         Response<LoginResponse> response = new Response<>(loginResponse);
         if ("222222".equals(verifyCode)) {
