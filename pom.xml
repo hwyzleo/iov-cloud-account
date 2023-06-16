@@ -28,10 +28,4 @@
     <dependencies>
     </dependencies>
 
-    <build>
-        <finalName>application</finalName>
-        <plugins>
-        </plugins>
-    </build>
-
 </project>

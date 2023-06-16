@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.hwyz.iov.cloud.account.service.infrastructure.repository.dao.AccountDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="baseResultMap" type="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.AccountPo">
+        <id column="id" property="id" />
+        <result column="description" property="description" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="modify_by" property="modifyBy" />
+        <result column="row_version" property="rowVersion" />
+        <result column="is_valid" property="isValid" />
+        <result column="uid" property="uid" />
+        <result column="username" property="username" />
+        <result column="country_region_code" property="countryRegionCode" />
+        <result column="mobile" property="mobile" />
+        <result column="email" property="email" />
+        <result column="nickname" property="nickname" />
+        <result column="avatar" property="avatar" />
+        <result column="gender" property="gender" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="baseColumnList">
+        id, uid, username, country_region_code, mobile, email, nickname, avatar, gender, 
+        description, create_time, create_by, modify_time, modify_by, row_version, is_valid
+    </sql>
+
+    <!-- 插入 -->
+    <insert id="insertPo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_account (
+            id, uid, username, country_region_code, mobile, email, nickname, avatar, gender, 
+            description, create_time, create_by, modify_time, modify_by, row_version, is_valid
+        )
+        VALUES (
+            #{id}, #{uid}, #{username}, #{countryRegionCode}, #{mobile}, #{email}, #{nickname}, #{avatar}, #{gender}, 
+            #{description}, now(), #{createBy}, now(), #{modifyBy}, 1, 1
+        )
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsertPo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO tb_account (
+            id, uid, username, country_region_code, mobile, email, nickname, avatar, gender, 
+            description, create_time, create_by, modify_time, modify_by, row_version, is_valid
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+            #{item.id}, #{item.uid}, #{item.username}, #{item.countryRegionCode}, #{item.mobile}, #{item.email}, #{item.nickname}, #{item.avatar}, #{item.gender}, 
+            #{item.description}, now(), #{item.createBy}, now(), #{item.modifyBy}, 1, 1
+        )
+        </foreach>
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updatePo" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.AccountPo">
+        UPDATE tb_account t SET
+        <if test="uid != null and uid != ''">
+            t.uid = #{uid},
+        </if>
+        <if test="username != null and username != ''">
+            t.username = #{username},
+        </if>
+        <if test="countryRegionCode != null and countryRegionCode != ''">
+            t.country_region_code = #{countryRegionCode},
+        </if>
+        <if test="mobile != null and mobile != ''">
+            t.mobile = #{mobile},
+        </if>
+        <if test="email != null and email != ''">
+            t.email = #{email},
+        </if>
+        <if test="nickname != null and nickname != ''">
+            t.nickname = #{nickname},
+        </if>
+        <if test="avatar != null and avatar != ''">
+            t.avatar = #{avatar},
+        </if>
+        <if test="gender != null and gender != ''">
+            t.gender = #{gender},
+        </if>
+        <if test="description != null and description != ''">
+            t.description = #{description},
+        </if>
+        <if test="updateBy != null">
+            t.modify_by = #{modifyBy},
+        </if>
+        t.row_version = t.row_version + 1,
+        t.modify_date = now()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 逻辑删除 -->
+    <update id="logicalDeletePo" parameterType="Long">
+        UPDATE tb_account t SET
+        t.row_version = t.row_version + 1,
+        t.modify_date = now(),
+        t.is_valid = 0
+        WHERE t.id = #{value}
+    </update>
+
+    <!-- 物理删除 -->
+    <delete id="physicalDeletePo" parameterType="Long">
+        DELETE FROM tb_account t
+        WHERE t.id = #{value}
+    </delete>
+
+    <!-- 根据主键获取对应数据 -->
+    <select id="selectPoById" parameterType="Long" resultMap="baseResultMap">
+        SELECT <include refid="baseColumnList"/>
+        FROM tb_account t
+        WHERE t.id = #{value}
+        AND t.is_valid = 1
+    </select>
+
+    <!-- 根据数据对象获取对应数据列表 -->
+    <select id="selectPoByExample" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.AccountPo" resultMap="baseResultMap">
+        SELECT <include refid="baseColumnList"/>
+        FROM tb_account t
+        WHERE t.is_valid = 1
+        <if test="id != null">
+            AND t.id = #{id}
+        </if>
+        <if test="uid != null and uid != ''">
+            AND t.uid = #{uid}
+        </if>
+        <if test="username != null and username != ''">
+            AND t.username = #{username}
+        </if>
+        <if test="countryRegionCode != null and countryRegionCode != ''">
+            AND t.country_region_code = #{countryRegionCode}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND t.mobile = #{mobile}
+        </if>
+        <if test="email != null and email != ''">
+            AND t.email = #{email}
+        </if>
+        <if test="nickname != null and nickname != ''">
+            AND t.nickname = #{nickname}
+        </if>
+        <if test="avatar != null and avatar != ''">
+            AND t.avatar = #{avatar}
+        </if>
+        <if test="gender != null and gender != ''">
+            AND t.gender = #{gender}
+        </if>
+        <if test="description != null and description != ''">
+            AND t.description = #{description}
+        </if>
+        <if test="createTime != null">
+            AND t.create_time = #{createTime}
+        </if>
+        <if test="createBy != null">
+            AND t.create_by = #{createBy}
+        </if>
+        <if test="modifyTime != null">
+            AND t.modify_time = #{modifyTime}
+        </if>
+        <if test="modifyBy != null">
+            AND t.modify_by = #{modifyBy}
+        </if>
+        <if test="rowVersion != null">
+            AND t.row_version = #{rowVersion}
+        </if>
+        ORDER BY t.id DESC
+    </select>
+
+    <!-- 根据Map对象获取对应数据列表 -->
+    <select id="selectPoByMap" parameterType="java.util.Map" resultMap="baseResultMap">
+        SELECT <include refid="baseColumnList"/>
+        FROM tb_account t
+        WHERE t.is_valid = 1
+        <!-- 添加自定义条件 -->
+        ORDER BY t.id DESC
+    </select>
+
+    <!-- 根据Map对象统计记录数 -->
+    <select id="countPoByMap" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(*)
+        FROM tb_account t
+        WHERE t.is_valid = 1
+        <!-- 添加自定义条件 -->
+    </select>
+</mapper>
