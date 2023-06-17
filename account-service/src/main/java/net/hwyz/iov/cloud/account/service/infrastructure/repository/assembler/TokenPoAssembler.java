@@ -1,6 +1,7 @@
 package net.hwyz.iov.cloud.account.service.infrastructure.repository.assembler;
 
 import net.hwyz.iov.cloud.account.service.domain.token.model.TokenDo;
+import net.hwyz.iov.cloud.account.service.infrastructure.repository.po.TokenPo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
@@ -21,7 +22,7 @@ public interface TokenPoAssembler {
      * @param tokenDo 领域对象
      * @return 数据对象
      */
-//    @Mappings({})
-//    TokenPo fromDo(TokenDo tokenDo);
+    @Mappings({})
+    TokenPo fromDo(TokenDo tokenDo);
 
 }

@@ -11,7 +11,12 @@ import net.hwyz.iov.cloud.account.service.domain.contract.enums.DoState;
  */
 @Getter
 @SuperBuilder
-public class BaseDo {
+public abstract class BaseDo<ID> {
+
+    /**
+     * 主键
+     */
+    protected ID id;
 
     /**
      * 领域对象状态

@@ -32,9 +32,9 @@ CREATE TABLE `db_account`.`tb_token`
     `scope`                 VARCHAR(255)          DEFAULT NULL COMMENT '权限范围',
     `token_type`            VARCHAR(20)  NOT NULL COMMENT '令牌类型',
     `issue_time`            TIMESTAMP    NOT NULL COMMENT '发行时间',
-    `access_token`          VARCHAR(100) NOT NULL COMMENT '访问令牌',
+    `access_token`          VARCHAR(255) NOT NULL COMMENT '访问令牌',
     `access_token_expires`  TIMESTAMP    NOT NULL COMMENT '访问令牌过期时间',
-    `refresh_token`         VARCHAR(100) NOT NULL COMMENT '刷新令牌',
+    `refresh_token`         VARCHAR(255) NOT NULL COMMENT '刷新令牌',
     `refresh_token_expires` TIMESTAMP    NOT NULL COMMENT '刷新令牌过期时间',
     `description`           VARCHAR(255)          DEFAULT NULL COMMENT '备注',
     `create_time`           TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -46,3 +46,27 @@ CREATE TABLE `db_account`.`tb_token`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='令牌数据';
+
+DROP TABLE IF EXISTS `db_account`.`tb_device`;
+CREATE TABLE `db_account`.`tb_device`
+(
+    `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `uid`         VARCHAR(50)           DEFAULT NULL COMMENT '账号唯一ID',
+    `device_id`   VARCHAR(255) NOT NULL COMMENT '设备ID',
+    `device_type` VARCHAR(20)           DEFAULT NULL COMMENT '设备类型',
+    `oem`         VARCHAR(50)           DEFAULT NULL COMMENT '设备厂商',
+    `os_version`  VARCHAR(255)          DEFAULT NULL COMMENT '操作系统版本',
+    `app_version` VARCHAR(100)          DEFAULT NULL COMMENT '应用版本',
+    `ip`          VARCHAR(100)          DEFAULT NULL COMMENT 'IP地址',
+    `login_time`  TIMESTAMP             DEFAULT NULL COMMENT '最后登录时间',
+    `description` VARCHAR(255)          DEFAULT NULL COMMENT '备注',
+    `create_time` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_by`   BIGINT                DEFAULT NULL COMMENT '创建者',
+    `modify_time` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+    `modify_by`   BIGINT                DEFAULT NULL COMMENT '修改者',
+    `row_version` INT                   DEFAULT NULL COMMENT '记录版本',
+    `is_valid`    TINYINT               DEFAULT NULL COMMENT '是否有效',
+    PRIMARY KEY (`id`),
+    KEY `idx_device_id` (`device_id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='设备数据';

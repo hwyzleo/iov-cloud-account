@@ -18,5 +18,9 @@ public class MobileLoginResponse extends LoginResponse{
      * 手机号
      */
     private String mobile;
+    /**
+     * 昵称
+     */
+    private String nickname;
 
 }

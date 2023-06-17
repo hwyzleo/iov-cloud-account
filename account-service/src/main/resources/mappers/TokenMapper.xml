@@ -93,7 +93,7 @@
         <if test="description != null and description != ''">
             t.description = #{description},
         </if>
-        <if test="lastUpdateBy != null">
+        <if test="modifyBy != null">
             t.modify_by = #{modifyBy},
         </if>
         t.row_version = t.row_version + 1,

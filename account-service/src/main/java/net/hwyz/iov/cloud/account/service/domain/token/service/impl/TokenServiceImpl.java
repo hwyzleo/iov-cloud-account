@@ -20,9 +20,9 @@ public class TokenServiceImpl implements TokenService {
     final TokenRepository repository;
 
     @Override
-    public TokenDo createMobileToken(String uid, String clientId, byte[] key) {
+    public TokenDo createMobileToken(String uid, String clientId) {
         TokenDo tokenDo = factory.buildMobile(uid, clientId);
-        tokenDo.init(key);
+        tokenDo.init();
         repository.save(tokenDo);
         return tokenDo;
     }

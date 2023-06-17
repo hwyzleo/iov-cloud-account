@@ -1,5 +1,6 @@
 package net.hwyz.iov.cloud.account.service.infrastructure.repository;
 
+import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.hwyz.iov.cloud.account.service.domain.account.model.AccountDo;
@@ -47,6 +48,15 @@ public class AccountRepositoryImpl extends AbstractRepository<Long, AccountDo> i
 
     @Override
     public boolean save(AccountDo accountDo) {
-        return false;
+        if (logger.isDebugEnabled()) {
+            logger.debug("保存账号领域对象[{}]", JSONUtil.parse(accountDo).toJSONString(0));
+        }
+        switch (accountDo.getState()) {
+            case NEW -> accountDao.insertPo(AccountPoAssembler.INSTANCE.fromDo(accountDo));
+            default -> {
+                return false;
+            }
+        }
+        return true;
     }
 }

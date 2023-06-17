@@ -14,8 +14,7 @@ public interface TokenService {
      *
      * @param uid      用户唯一ID
      * @param clientId 客户端ID
-     * @param key      密钥
      */
-    TokenDo createMobileToken(String uid, String clientId, byte[] key);
+    TokenDo createMobileToken(String uid, String clientId);
 
 }

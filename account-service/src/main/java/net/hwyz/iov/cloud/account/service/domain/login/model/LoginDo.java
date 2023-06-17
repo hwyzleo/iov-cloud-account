@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Getter
 @SuperBuilder
-public class LoginDo extends BaseDo {
+public class LoginDo extends BaseDo<Long> {
 
     /**
      * 国家或地区代码

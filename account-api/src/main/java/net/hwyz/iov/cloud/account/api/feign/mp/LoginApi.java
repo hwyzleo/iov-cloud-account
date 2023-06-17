@@ -13,21 +13,22 @@ public interface LoginApi {
     /**
      * 发送登录验证码
      *
+     * @param clientId          客户端ID
      * @param countryRegionCode 国家或地区代码
      * @param mobile            手机号
      * @return 操作结果
      */
-    Response<Void> sendVerifyCode(String countryRegionCode, String mobile);
+    Response<Void> sendVerifyCode(String clientId, String countryRegionCode, String mobile);
 
     /**
      * 验证码登录
      *
+     * @param clientId          客户端ID
      * @param countryRegionCode 国家或地区代码
      * @param mobile            手机号
-     * @param deviceId          手机设备ID
      * @param verifyCode        登录验证码
      * @return 手机登录结果
      */
-    Response<MobileLoginResponse> verifyCodeLogin(String countryRegionCode, String mobile, String deviceId, String verifyCode);
+    Response<MobileLoginResponse> verifyCodeLogin(String clientId, String countryRegionCode, String mobile, String verifyCode);
 
 }

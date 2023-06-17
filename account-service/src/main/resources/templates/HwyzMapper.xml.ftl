@@ -78,7 +78,7 @@
         <if test="description != null and description != ''">
             <#noparse>t.description = #{description},</#noparse>
         </if>
-        <if test="lastUpdateBy != null">
+        <if test="modifyBy != null">
             <#noparse>t.modify_by = #{modifyBy},</#noparse>
         </if>
         t.row_version = t.row_version + 1,

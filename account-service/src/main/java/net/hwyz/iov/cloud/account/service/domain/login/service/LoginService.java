@@ -12,10 +12,11 @@ public interface LoginService {
     /**
      * 发送手机验证码
      *
+     * @param clientId      客户端ID
      * @param countryRegion 国家或地区
      * @param mobile        手机号
      */
-    void sendMobileVerifyCode(CountryRegion countryRegion, String mobile);
+    void sendMobileVerifyCode(String clientId, CountryRegion countryRegion, String mobile);
 
     /**
      * 验证手机验证码

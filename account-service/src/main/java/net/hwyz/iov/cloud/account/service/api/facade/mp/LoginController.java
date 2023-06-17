@@ -2,7 +2,6 @@ package net.hwyz.iov.cloud.account.service.api.facade.mp;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.hwyz.iov.cloud.account.api.contract.response.LoginResponse;
 import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
 import net.hwyz.iov.cloud.account.api.feign.mp.LoginApi;
 import net.hwyz.iov.cloud.account.service.application.service.LoginAppService;
@@ -30,18 +29,20 @@ public class LoginController implements LoginApi {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response<Void> sendVerifyCode(@RequestParam String countryRegionCode, @RequestParam String mobile) {
-        logger.info("向手机[{}:{}]发送登录验证码", countryRegionCode, mobile);
-        loginAppService.sendMobileVerifyCode(CountryRegion.valOf(countryRegionCode), mobile);
+    public Response<Void> sendVerifyCode(@RequestHeader String clientId, @RequestParam String countryRegionCode,
+                                         @RequestParam String mobile) {
+        logger.info("手机客户端[{}]向手机[{}:{}]发送登录验证码", clientId, countryRegionCode, mobile);
+        loginAppService.sendMobileVerifyCode(clientId, CountryRegion.valOf(countryRegionCode), mobile);
         return new Response<>();
     }
 
     @Override
     @PostMapping(value = "/verifyCodeLogin")
-    public Response<MobileLoginResponse> verifyCodeLogin(@RequestParam String countryRegionCode, @RequestParam String mobile,
-                                                         @RequestHeader String deviceId, @RequestParam String verifyCode) {
-        logger.info("手机[{}:{}:{}]通过验证码[{}]登录", countryRegionCode, mobile, deviceId, verifyCode);
-        MobileLoginResponse loginResponse = loginAppService.mobileVerifyCodeLogin(CountryRegion.valOf(countryRegionCode), mobile, deviceId, verifyCode);
+    public Response<MobileLoginResponse> verifyCodeLogin(@RequestHeader String clientId, @RequestParam String countryRegionCode,
+                                                         @RequestParam String mobile, @RequestParam String verifyCode) {
+        logger.info("手机客户端[{}]通过验证码[{}]登录手机账号[{}:{}]", clientId, verifyCode, countryRegionCode, mobile);
+        MobileLoginResponse loginResponse = loginAppService.mobileVerifyCodeLogin(clientId,
+                CountryRegion.valOf(countryRegionCode), mobile, verifyCode);
         return new Response<>(loginResponse);
     }
 }

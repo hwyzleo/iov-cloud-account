@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import net.hwyz.iov.cloud.account.service.domain.token.model.TokenDo;
 import net.hwyz.iov.cloud.account.service.domain.token.repository.TokenRepository;
 import net.hwyz.iov.cloud.account.service.infrastructure.repository.assembler.TokenPoAssembler;
+import net.hwyz.iov.cloud.account.service.infrastructure.repository.dao.TokenDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TokenRepositoryImpl extends AbstractRepository<Long, TokenDo> implements TokenRepository {
 
-//    final TokenDao tokenDao;
+    final TokenDao tokenDao;
 
     @Override
     public Optional<TokenDo> getById(Long aLong) {
@@ -33,12 +34,12 @@ public class TokenRepositoryImpl extends AbstractRepository<Long, TokenDo> imple
             logger.debug("保存令牌领域对象[{}]", JSONUtil.parse(tokenDo).toJSONString(0));
         }
         switch (tokenDo.getState()) {
-//            case NEW -> tokenDao.insertPo(TokenPoAssembler.INSTANCE.fromDo(tokenDo));
+            case NEW -> tokenDao.insertPo(TokenPoAssembler.INSTANCE.fromDo(tokenDo));
             default -> {
                 return false;
             }
         }
-//        return true;
+        return true;
     }
 
 }

@@ -35,6 +35,7 @@ public class LoginControllerTest extends BaseTest {
         content.put("mobile", ListUtil.of("13000000000"));
         mockMvc.perform(MockMvcRequestBuilders
                         .post(path + "/sendVerifyCode")
+                        .headers(newHttpHeader())
                         .params(content)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
@@ -44,15 +45,13 @@ public class LoginControllerTest extends BaseTest {
     @Test
     @DisplayName("验证码登录")
     public void testVerifyCodeLogin() throws Exception {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("deviceId", "device");
         MultiValueMap<String, String> content = new LinkedMultiValueMap<>();
         content.put("countryRegionCode", ListUtil.of("+86"));
         content.put("mobile", ListUtil.of("13000000000"));
         content.put("verifyCode", ListUtil.of("111111"));
         mockMvc.perform(MockMvcRequestBuilders
                         .post(path + "/verifyCodeLogin")
-                        .headers(headers)
+                        .headers(newHttpHeader())
                         .params(content)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
