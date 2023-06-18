@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration monitorInterval="5">
+<Configuration monitorInterval="5">
     <Properties>
-        <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
-        <property name="LOG_LEVEL" value="WARN"/>
+        <Property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+        <Property name="LOG_LEVEL" value="WARN"/>
     </Properties>
 
-    <appenders>
+    <Appenders>
         <!--控制台-->
-        <console name="Console" target="SYSTEM_OUT">
+        <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${LOG_PATTERN}"/>
-        </console>
-    </appenders>
+        </Console>
+    </Appenders>
 
-    <loggers>
-        <logger name="net.hwyz.iov.cloud.account" level="DEBUG"/>
-        <root level="${LOG_LEVEL}">
-            <appender-ref ref="Console"/>
-        </root>
-    </loggers>
 
-</configuration>
+    <Loggers>
+        <Logger name="net.hwyz.iov.cloud.account" level="DEBUG"/>
+        <Root level="${LOG_LEVEL}">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

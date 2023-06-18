@@ -1,23 +1,9 @@
 server:
   port: 8081
 
-logging:
-  config: classpath:log4j2.xml
-
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/db_account?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
-    username: account
-    password: 123456
-  data:
-    redis:
-      host: 127.0.0.1
-      database: 0
-      port: 6379
-  jackson:
-    serialization:
-      write-dates-as-timestamps: true
+  profiles:
+    active: local
 
 mybatis-plus:
   mapper-locations: classpath:mappers/*.xml
