@@ -2,7 +2,7 @@ package net.hwyz.iov.cloud.account.service.domain.login.service.impl;
 
 import cn.hutool.core.collection.ListUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
 import net.hwyz.iov.cloud.account.service.domain.external.service.ExMnoService;
 import net.hwyz.iov.cloud.account.service.domain.factory.LoginFactory;
@@ -20,7 +20,7 @@ import java.util.Optional;
  *
  * @author hwyz_leo
  */
-@Log4j2
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {

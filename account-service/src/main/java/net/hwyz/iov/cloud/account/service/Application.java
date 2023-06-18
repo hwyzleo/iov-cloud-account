@@ -1,7 +1,7 @@
 package net.hwyz.iov.cloud.account.service;
 
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *
  * @author hwyz_leo
  */
-@Log4j2
+@Slf4j
 @EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("net.hwyz.iov.cloud.account.service.infrastructure.repository.dao")

@@ -1,7 +1,7 @@
 package net.hwyz.iov.cloud.account.service.api.facade.mp;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
 import net.hwyz.iov.cloud.account.api.feign.mp.LoginApi;
 import net.hwyz.iov.cloud.account.service.application.service.LoginAppService;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author hwyz_leo
  */
-@Log4j2
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/mp/login")

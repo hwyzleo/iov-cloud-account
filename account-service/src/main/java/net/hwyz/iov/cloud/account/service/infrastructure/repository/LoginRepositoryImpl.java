@@ -2,7 +2,7 @@ package net.hwyz.iov.cloud.account.service.infrastructure.repository;
 
 import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
 import net.hwyz.iov.cloud.account.service.domain.login.model.LoginDo;
 import net.hwyz.iov.cloud.account.service.domain.login.repository.LoginRepository;
@@ -17,7 +17,7 @@ import java.util.Optional;
  *
  * @author hwyz_leo
  */
-@Log4j2
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class LoginRepositoryImpl extends AbstractRepository<Long, LoginDo> implements LoginRepository {

@@ -1,6 +1,6 @@
 package net.hwyz.iov.cloud.account.service.infrastructure.external;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.service.domain.external.service.ExMnoService;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author hwyz_leo
  */
-@Log4j2
+@Slf4j
 @Service
 public class ExMnoServiceImpl implements ExMnoService {
 

@@ -1,7 +1,7 @@
 package net.hwyz.iov.cloud.account.service.domain.device.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.DeviceType;
 import net.hwyz.iov.cloud.account.service.domain.device.model.DeviceDo;
 import net.hwyz.iov.cloud.account.service.domain.device.repository.DeviceRepository;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  *
  * @author hwyz_leo
  */
-@Log4j2
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DeviceServiceImpl implements DeviceService {

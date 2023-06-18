@@ -2,7 +2,7 @@ package net.hwyz.iov.cloud.account.service.application.service;
 
 import cn.hutool.core.util.PhoneUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
 import net.hwyz.iov.cloud.account.service.domain.account.model.AccountDo;
 import net.hwyz.iov.cloud.account.service.domain.account.service.AccountService;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  *
  * @author hwyz_leo
  */
-@Log4j2
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LoginAppService {
