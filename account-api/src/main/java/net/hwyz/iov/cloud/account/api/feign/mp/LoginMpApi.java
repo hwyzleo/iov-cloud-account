@@ -4,11 +4,11 @@ import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
 import net.hwyz.iov.cloud.framework.commons.bean.Response;
 
 /**
- * 登录相关接口
+ * 登录相关手机接口
  *
  * @author hwyz_leo
  */
-public interface LoginApi {
+public interface LoginMpApi {
 
     /**
      * 发送登录验证码

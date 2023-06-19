@@ -7,16 +7,16 @@ import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
 import net.hwyz.iov.cloud.account.service.domain.account.model.AccountDo;
 import net.hwyz.iov.cloud.account.service.domain.account.service.AccountService;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
-import net.hwyz.iov.cloud.account.service.domain.contract.enums.DeviceOperation;
-import net.hwyz.iov.cloud.account.service.domain.contract.enums.DeviceType;
-import net.hwyz.iov.cloud.account.service.domain.device.model.DeviceDo;
-import net.hwyz.iov.cloud.account.service.domain.device.service.DeviceService;
+import net.hwyz.iov.cloud.account.service.domain.contract.enums.ClientOperation;
+import net.hwyz.iov.cloud.account.service.domain.client.model.ClientDo;
+import net.hwyz.iov.cloud.account.service.domain.client.service.ClientService;
 import net.hwyz.iov.cloud.account.service.domain.external.service.ExSecurityService;
 import net.hwyz.iov.cloud.account.service.domain.login.service.LoginService;
 import net.hwyz.iov.cloud.account.service.domain.token.model.TokenDo;
 import net.hwyz.iov.cloud.account.service.domain.token.service.TokenService;
 import net.hwyz.iov.cloud.account.service.infrastructure.exception.MobileInvalidException;
 import net.hwyz.iov.cloud.account.service.infrastructure.exception.MobileLoginVerifyCodeIncorrectException;
+import net.hwyz.iov.cloud.framework.commons.enums.ClientType;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,7 +31,7 @@ public class LoginAppService {
 
     final LoginService loginService;
     final TokenService tokenService;
-    final DeviceService deviceService;
+    final ClientService clientService;
     final AccountService accountService;
     final ExSecurityService securityService;
 
@@ -44,8 +44,8 @@ public class LoginAppService {
      */
     public void sendMobileVerifyCode(String clientId, CountryRegion countryRegion, String mobile) {
         checkMobile(countryRegion, mobile);
-        DeviceDo deviceDo = deviceService.getOrCreate(clientId, DeviceType.MP);
-        deviceDo.checkOperation(DeviceOperation.SEND_LOGIN_VERIFY_CODE);
+        ClientDo clientDo = clientService.getOrCreate(clientId, ClientType.MP);
+        clientDo.checkOperation(ClientOperation.SEND_LOGIN_VERIFY_CODE);
         loginService.sendMobileVerifyCode(clientId, countryRegion, mobile);
     }
 
@@ -63,7 +63,7 @@ public class LoginAppService {
         boolean verifySuccess = loginService.verifyMobileVerifyCode(countryRegion, mobile, verifyCode);
         if (verifySuccess) {
             AccountDo accountDo = accountService.getOrCreate(countryRegion, mobile);
-            deviceService.login(clientId, DeviceType.MP, accountDo.getUid());
+            clientService.login(clientId, ClientType.MP, accountDo.getUid());
             TokenDo tokenDo = tokenService.createMobileToken(accountDo.getUid(), clientId);
             return MobileLoginResponse.builder()
                     .mobile(mobile)

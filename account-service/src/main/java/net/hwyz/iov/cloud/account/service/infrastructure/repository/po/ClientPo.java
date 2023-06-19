@@ -4,16 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+
 import java.util.Date;
 
 import lombok.experimental.SuperBuilder;
-import net.hwyz.iov.cloud.account.service.infrastructure.repository.po.BasePo;
 import lombok.*;
 
 /**
  * <p>
- * 设备数据 数据对象
+ * 客户端数据 数据对象
  * </p>
  *
  * @author hwyz_leo
@@ -24,8 +23,8 @@ import lombok.*;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("tb_device")
-public class DevicePo extends BasePo {
+@TableName("tb_client")
+public class ClientPo extends BasePo {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,16 +41,16 @@ public class DevicePo extends BasePo {
     private String uid;
 
     /**
-     * 设备ID
+     * 客户端ID
      */
-    @TableField("device_id")
-    private String deviceId;
+    @TableField("client_id")
+    private String clientId;
 
     /**
-     * 设备类型
+     * 客户端类型
      */
-    @TableField("device_type")
-    private String deviceType;
+    @TableField("client_type")
+    private String clientType;
 
     /**
      * 设备厂商

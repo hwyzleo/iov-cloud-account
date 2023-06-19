@@ -69,7 +69,7 @@ public class MybatisPlusGenerator {
 //                    consumer.customFile(customFile);
 //                })
                 .strategyConfig(builder -> {
-                    builder.addInclude("tb_account", "tb_token", "tb_device") // 设置需要生成的表名 可边长参数“user”, “user1”
+                    builder.addInclude("tb_account", "tb_token", "tb_client") // 设置需要生成的表名 可边长参数“user”, “user1”
                             .addTablePrefix("tb_") // 设置过滤表前缀
                             //.serviceBuilder()
                             //.serviceBuilder()//service策略配置

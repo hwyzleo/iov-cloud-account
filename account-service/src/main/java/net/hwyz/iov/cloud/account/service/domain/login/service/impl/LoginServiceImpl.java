@@ -34,7 +34,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void sendMobileVerifyCode(String clientId, CountryRegion countryRegion, String mobile) {
-        logger.info("手机设备[{}]向手机[{}:{}]发送登录验证码", clientId, countryRegion.code, mobile);
+        logger.info("手机客户端[{}]向手机[{}:{}]发送登录验证码", clientId, countryRegion.code, mobile);
         LoginDo loginDo = repository.getByMobile(countryRegion, mobile).orElseGet(() -> {
             LoginDo newLoginDo = factory.build(countryRegion, mobile);
             newLoginDo.init();

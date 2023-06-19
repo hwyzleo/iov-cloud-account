@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.hwyz.iov.cloud.account.service.infrastructure.repository.dao.DeviceDao">
+<mapper namespace="net.hwyz.iov.cloud.account.service.infrastructure.repository.dao.ClientDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="baseResultMap" type="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.DevicePo">
+    <resultMap id="baseResultMap" type="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.ClientPo">
         <id column="id" property="id" />
         <result column="description" property="description" />
         <result column="create_time" property="createTime" />
@@ -13,8 +13,8 @@
         <result column="row_version" property="rowVersion" />
         <result column="is_valid" property="isValid" />
         <result column="uid" property="uid" />
-        <result column="device_id" property="deviceId" />
-        <result column="device_type" property="deviceType" />
+        <result column="client_id" property="clientId" />
+        <result column="client_type" property="clientType" />
         <result column="oem" property="oem" />
         <result column="os_version" property="osVersion" />
         <result column="app_version" property="appVersion" />
@@ -24,48 +24,48 @@
 
     <!-- 通用查询结果列 -->
     <sql id="baseColumnList">
-        id, uid, device_id, device_type, oem, os_version, app_version, ip, login_time, 
+        id, uid, client_id, client_type, oem, os_version, app_version, ip, login_time,
         description, create_time, create_by, modify_time, modify_by, row_version, is_valid
     </sql>
 
     <!-- 插入 -->
     <insert id="insertPo" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO tb_device (
-            id, uid, device_id, device_type, oem, os_version, app_version, ip, login_time, 
+        INSERT INTO tb_client (
+            id, uid, client_id, client_type, oem, os_version, app_version, ip, login_time,
             description, create_time, create_by, modify_time, modify_by, row_version, is_valid
         )
         VALUES (
-            #{id}, #{uid}, #{deviceId}, #{deviceType}, #{oem}, #{osVersion}, #{appVersion}, #{ip}, #{loginTime}, 
+            #{id}, #{uid}, #{clientId}, #{clientType}, #{oem}, #{osVersion}, #{appVersion}, #{ip}, #{loginTime},
             #{description}, now(), #{createBy}, now(), #{modifyBy}, 1, 1
         )
     </insert>
 
     <!-- 批量插入 -->
     <insert id="batchInsertPo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
-        INSERT INTO tb_device (
-            id, uid, device_id, device_type, oem, os_version, app_version, ip, login_time, 
+        INSERT INTO tb_client (
+            id, uid, client_id, client_type, oem, os_version, app_version, ip, login_time,
             description, create_time, create_by, modify_time, modify_by, row_version, is_valid
         )
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
         (
-            #{item.id}, #{item.uid}, #{item.deviceId}, #{item.deviceType}, #{item.oem}, #{item.osVersion}, #{item.appVersion}, #{item.ip}, #{item.loginTime}, 
+            #{item.id}, #{item.uid}, #{item.clientId}, #{item.clientType}, #{item.oem}, #{item.osVersion}, #{item.appVersion}, #{item.ip}, #{item.loginTime},
             #{item.description}, now(), #{item.createBy}, now(), #{item.modifyBy}, 1, 1
         )
         </foreach>
     </insert>
 
     <!-- 更新 -->
-    <update id="updatePo" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.DevicePo">
-        UPDATE tb_device t SET
+    <update id="updatePo" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.ClientPo">
+        UPDATE tb_client t SET
         <if test="uid != null and uid != ''">
             t.uid = #{uid},
         </if>
-        <if test="deviceId != null and deviceId != ''">
-            t.device_id = #{deviceId},
+        <if test="clientId != null and clientId != ''">
+            t.client_id = #{clientId},
         </if>
-        <if test="deviceType != null and deviceType != ''">
-            t.device_type = #{deviceType},
+        <if test="clientType != null and clientType != ''">
+            t.client_type = #{clientType},
         </if>
         <if test="oem != null and oem != ''">
             t.oem = #{oem},
@@ -95,7 +95,7 @@
 
     <!-- 逻辑删除 -->
     <update id="logicalDeletePo" parameterType="Long">
-        UPDATE tb_device t SET
+        UPDATE tb_client t SET
         t.row_version = t.row_version + 1,
         t.modify_time = now(),
         t.is_valid = 0
@@ -104,22 +104,22 @@
 
     <!-- 物理删除 -->
     <delete id="physicalDeletePo" parameterType="Long">
-        DELETE FROM tb_device t
+        DELETE FROM tb_client t
         WHERE t.id = #{value}
     </delete>
 
     <!-- 根据主键获取对应数据 -->
     <select id="selectPoById" parameterType="Long" resultMap="baseResultMap">
         SELECT <include refid="baseColumnList"/>
-        FROM tb_device t
+        FROM tb_client t
         WHERE t.id = #{value}
         AND t.is_valid = 1
     </select>
 
     <!-- 根据数据对象获取对应数据列表 -->
-    <select id="selectPoByExample" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.DevicePo" resultMap="baseResultMap">
+    <select id="selectPoByExample" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.ClientPo" resultMap="baseResultMap">
         SELECT <include refid="baseColumnList"/>
-        FROM tb_device t
+        FROM tb_client t
         WHERE t.is_valid = 1
         <if test="id != null">
             AND t.id = #{id}
@@ -127,11 +127,11 @@
         <if test="uid != null and uid != ''">
             AND t.uid = #{uid}
         </if>
-        <if test="deviceId != null and deviceId != ''">
-            AND t.device_id = #{deviceId}
+        <if test="clientId != null and clientId != ''">
+            AND t.client_id = #{clientId}
         </if>
-        <if test="deviceType != null and deviceType != ''">
-            AND t.device_type = #{deviceType}
+        <if test="clientType != null and clientType != ''">
+            AND t.client_type = #{clientType}
         </if>
         <if test="oem != null and oem != ''">
             AND t.oem = #{oem}
@@ -172,7 +172,7 @@
     <!-- 根据Map对象获取对应数据列表 -->
     <select id="selectPoByMap" parameterType="java.util.Map" resultMap="baseResultMap">
         SELECT <include refid="baseColumnList"/>
-        FROM tb_device t
+        FROM tb_client t
         WHERE t.is_valid = 1
         <!-- 添加自定义条件 -->
         ORDER BY t.id DESC
@@ -181,15 +181,15 @@
     <!-- 根据Map对象统计记录数 -->
     <select id="countPoByMap" parameterType="java.util.Map" resultType="int">
         SELECT COUNT(*)
-        FROM tb_device t
+        FROM tb_client t
         WHERE t.is_valid = 1
         <!-- 添加自定义条件 -->
     </select>
 
     <!-- 根据数据对象获取对应数据列表 -->
-    <select id="selectLastPoByExample" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.DevicePo" resultMap="baseResultMap">
+    <select id="selectLastPoByExample" parameterType="net.hwyz.iov.cloud.account.service.infrastructure.repository.po.ClientPo" resultMap="baseResultMap">
         SELECT <include refid="baseColumnList"/>
-        FROM tb_device t
+        FROM tb_client t
         WHERE t.is_valid = 1
         <if test="id != null">
             AND t.id = #{id}
@@ -197,11 +197,11 @@
         <if test="uid != null and uid != ''">
             AND t.uid = #{uid}
         </if>
-        <if test="deviceId != null and deviceId != ''">
-            AND t.device_id = #{deviceId}
+        <if test="clientId != null and clientId != ''">
+            AND t.client_id = #{clientId}
         </if>
-        <if test="deviceType != null and deviceType != ''">
-            AND t.device_type = #{deviceType}
+        <if test="clientType != null and clientType != ''">
+            AND t.client_type = #{clientType}
         </if>
         <if test="oem != null and oem != ''">
             AND t.oem = #{oem}

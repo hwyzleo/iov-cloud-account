@@ -3,7 +3,7 @@ package net.hwyz.iov.cloud.account.service.api.facade.mp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
-import net.hwyz.iov.cloud.account.api.feign.mp.LoginApi;
+import net.hwyz.iov.cloud.account.api.feign.mp.LoginMpApi;
 import net.hwyz.iov.cloud.account.service.application.service.LoginAppService;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
 import net.hwyz.iov.cloud.framework.commons.bean.Response;
@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 登录相关接口实现类
+ * 登录相关手机接口实现类
  *
  * @author hwyz_leo
  */
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/mp/login")
-public class LoginController implements LoginApi {
+public class LoginMpController implements LoginMpApi {
 
     final LoginAppService loginAppService;
 

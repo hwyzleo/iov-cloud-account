@@ -1,34 +1,34 @@
-package net.hwyz.iov.cloud.account.service.domain.device.model;
+package net.hwyz.iov.cloud.account.service.domain.client.model;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import net.hwyz.iov.cloud.account.service.domain.contract.BaseDo;
-import net.hwyz.iov.cloud.account.service.domain.contract.enums.DeviceOperation;
-import net.hwyz.iov.cloud.account.service.domain.contract.enums.DeviceType;
+import net.hwyz.iov.cloud.account.service.domain.contract.enums.ClientOperation;
+import net.hwyz.iov.cloud.framework.commons.enums.ClientType;
 
 import java.util.Date;
 
 /**
- * 设备领域对象
+ * 客户端领域对象
  *
  * @author hwyz_leo
  */
 @Getter
 @SuperBuilder
-public class DeviceDo extends BaseDo<Long> {
+public class ClientDo extends BaseDo<Long> {
 
     /**
      * 账号唯一ID
      */
     private String uid;
     /**
-     * 设备ID
+     * 客户端ID
      */
-    private String deviceId;
+    private String clientId;
     /**
-     * 设备类型
+     * 客户端类型
      */
-    private DeviceType deviceType;
+    private ClientType clientType;
     /**
      * 最后登录时间
      */
@@ -42,17 +42,17 @@ public class DeviceDo extends BaseDo<Long> {
     }
 
     /**
-     * 检查设备操作
+     * 检查客户端操作
      *
-     * @param operation 设备操作
+     * @param operation 客户端操作
      */
-    public void checkOperation(DeviceOperation operation) {
+    public void checkOperation(ClientOperation operation) {
         // TODO 可增加策略动态限制
         // 现在先不限制
     }
 
     /**
-     * 设备登录
+     * 客户端登录
      *
      * @param uid 账号唯一ID
      */

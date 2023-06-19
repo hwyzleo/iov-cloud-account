@@ -12,7 +12,7 @@ public class BaseTest {
 
     protected HttpHeaders newHttpHeader() {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("clientId", "device");
+        headers.add("clientId", "client");
         return headers;
     }
 

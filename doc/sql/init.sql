@@ -47,13 +47,13 @@ CREATE TABLE `db_account`.`tb_token`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='令牌数据';
 
-DROP TABLE IF EXISTS `db_account`.`tb_device`;
-CREATE TABLE `db_account`.`tb_device`
+DROP TABLE IF EXISTS `db_account`.`tb_client`;
+CREATE TABLE `db_account`.`tb_client`
 (
     `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
     `uid`         VARCHAR(50)           DEFAULT NULL COMMENT '账号唯一ID',
-    `device_id`   VARCHAR(255) NOT NULL COMMENT '设备ID',
-    `device_type` VARCHAR(20)           DEFAULT NULL COMMENT '设备类型',
+    `client_id`   VARCHAR(255) NOT NULL COMMENT '客户端ID',
+    `client_type` VARCHAR(20)           DEFAULT NULL COMMENT '客户端类型',
     `oem`         VARCHAR(50)           DEFAULT NULL COMMENT '设备厂商',
     `os_version`  VARCHAR(255)          DEFAULT NULL COMMENT '操作系统版本',
     `app_version` VARCHAR(100)          DEFAULT NULL COMMENT '应用版本',
@@ -67,6 +67,6 @@ CREATE TABLE `db_account`.`tb_device`
     `row_version` INT                   DEFAULT NULL COMMENT '记录版本',
     `is_valid`    TINYINT               DEFAULT NULL COMMENT '是否有效',
     PRIMARY KEY (`id`),
-    KEY `idx_device_id` (`device_id`) USING BTREE
+    KEY `idx_client_id` (`client_id`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='设备数据';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='客户端数据';
