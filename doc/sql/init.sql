@@ -27,10 +27,10 @@ CREATE TABLE `db_account`.`tb_token`
 (
     `id`                    BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
     `uid`                   VARCHAR(50)  NOT NULL COMMENT '账号唯一ID',
+    `client_type`           VARCHAR(20)  NOT NULL COMMENT '客户端类型',
     `client_id`             VARCHAR(50)  NOT NULL COMMENT '客户端ID',
     `vin`                   VARCHAR(20)           DEFAULT NULL COMMENT '车架号',
     `scope`                 VARCHAR(255)          DEFAULT NULL COMMENT '权限范围',
-    `token_type`            VARCHAR(20)  NOT NULL COMMENT '令牌类型',
     `issue_time`            TIMESTAMP    NOT NULL COMMENT '发行时间',
     `access_token`          VARCHAR(255) NOT NULL COMMENT '访问令牌',
     `access_token_expires`  TIMESTAMP    NOT NULL COMMENT '访问令牌过期时间',

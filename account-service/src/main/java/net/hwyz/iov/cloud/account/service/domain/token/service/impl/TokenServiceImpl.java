@@ -5,7 +5,10 @@ import net.hwyz.iov.cloud.account.service.domain.factory.TokenFactory;
 import net.hwyz.iov.cloud.account.service.domain.token.model.TokenDo;
 import net.hwyz.iov.cloud.account.service.domain.token.repository.TokenRepository;
 import net.hwyz.iov.cloud.account.service.domain.token.service.TokenService;
+import net.hwyz.iov.cloud.framework.commons.enums.ClientType;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * 令牌领域服务接口实现类
@@ -20,11 +23,15 @@ public class TokenServiceImpl implements TokenService {
     final TokenRepository repository;
 
     @Override
-    public TokenDo createMobileToken(String uid, String clientId) {
+    public TokenDo createMpToken(String uid, String clientId) {
         TokenDo tokenDo = factory.buildMobile(uid, clientId);
         tokenDo.init();
         repository.save(tokenDo);
         return tokenDo;
     }
 
+    @Override
+    public Optional<TokenDo> validateToken(String token, ClientType clientType, String clientId) {
+        return repository.getToken(token, clientType, clientId);
+    }
 }

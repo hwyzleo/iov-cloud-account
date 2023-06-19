@@ -3,7 +3,7 @@ package net.hwyz.iov.cloud.account.service.application.service;
 import cn.hutool.core.util.PhoneUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
+import net.hwyz.iov.cloud.account.api.contract.response.LoginMpResponse;
 import net.hwyz.iov.cloud.account.service.domain.account.model.AccountDo;
 import net.hwyz.iov.cloud.account.service.domain.account.service.AccountService;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
@@ -58,14 +58,14 @@ public class LoginAppService {
      * @param verifyCode    验证码
      * @return 登录响应
      */
-    public MobileLoginResponse mobileVerifyCodeLogin(String clientId, CountryRegion countryRegion, String mobile, String verifyCode) {
+    public LoginMpResponse mobileVerifyCodeLogin(String clientId, CountryRegion countryRegion, String mobile, String verifyCode) {
         checkMobile(countryRegion, mobile);
         boolean verifySuccess = loginService.verifyMobileVerifyCode(countryRegion, mobile, verifyCode);
         if (verifySuccess) {
             AccountDo accountDo = accountService.getOrCreate(countryRegion, mobile);
             clientService.login(clientId, ClientType.MP, accountDo.getUid());
-            TokenDo tokenDo = tokenService.createMobileToken(accountDo.getUid(), clientId);
-            return MobileLoginResponse.builder()
+            TokenDo tokenDo = tokenService.createMpToken(accountDo.getUid(), clientId);
+            return LoginMpResponse.builder()
                     .mobile(mobile)
                     .nickname(accountDo.getNickname())
                     .token(tokenDo.getAccessToken())

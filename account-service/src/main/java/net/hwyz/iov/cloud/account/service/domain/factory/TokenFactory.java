@@ -1,7 +1,7 @@
 package net.hwyz.iov.cloud.account.service.domain.factory;
 
-import net.hwyz.iov.cloud.account.service.domain.contract.enums.TokenType;
 import net.hwyz.iov.cloud.account.service.domain.token.model.TokenDo;
+import net.hwyz.iov.cloud.framework.commons.enums.ClientType;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,7 +23,7 @@ public class TokenFactory {
         return TokenDo.builder()
                 .uid(uid)
                 .clientId(clientId)
-                .tokenType(TokenType.MOBILE)
+                .clientType(ClientType.MP)
                 .build();
     }
 

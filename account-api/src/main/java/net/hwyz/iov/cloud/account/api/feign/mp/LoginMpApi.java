@@ -1,6 +1,6 @@
 package net.hwyz.iov.cloud.account.api.feign.mp;
 
-import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
+import net.hwyz.iov.cloud.account.api.contract.response.LoginMpResponse;
 import net.hwyz.iov.cloud.framework.commons.bean.Response;
 
 /**
@@ -29,6 +29,6 @@ public interface LoginMpApi {
      * @param verifyCode        登录验证码
      * @return 手机登录结果
      */
-    Response<MobileLoginResponse> verifyCodeLogin(String clientId, String countryRegionCode, String mobile, String verifyCode);
+    Response<LoginMpResponse> verifyCodeLogin(String clientId, String countryRegionCode, String mobile, String verifyCode);
 
 }

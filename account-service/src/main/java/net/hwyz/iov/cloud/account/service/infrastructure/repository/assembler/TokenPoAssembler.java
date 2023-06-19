@@ -25,4 +25,13 @@ public interface TokenPoAssembler {
     @Mappings({})
     TokenPo fromDo(TokenDo tokenDo);
 
+    /**
+     * 数据对象转领域对象
+     *
+     * @param tokenPo 数据对象
+     * @return 领域对象
+     */
+    @Mappings({})
+    TokenDo toDo(TokenPo tokenPo);
+
 }

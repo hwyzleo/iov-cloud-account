@@ -4,7 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import net.hwyz.iov.cloud.account.service.domain.contract.BaseDo;
-import net.hwyz.iov.cloud.account.service.domain.contract.enums.TokenType;
+import net.hwyz.iov.cloud.framework.commons.enums.ClientType;
 
 import java.util.Date;
 
@@ -22,9 +22,9 @@ public class TokenDo extends BaseDo<Long> {
      */
     private String uid;
     /**
-     * 令牌类型
+     * 客户端类型
      */
-    private TokenType tokenType;
+    private ClientType clientType;
     /**
      * 发行时间
      */

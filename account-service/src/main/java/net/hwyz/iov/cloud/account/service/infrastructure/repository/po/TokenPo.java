@@ -60,10 +60,10 @@ public class TokenPo extends BasePo {
     private String scope;
 
     /**
-     * 令牌类型
+     * 客户端类型
      */
-    @TableField("token_type")
-    private String tokenType;
+    @TableField("client_type")
+    private String clientType;
 
     /**
      * 发行时间

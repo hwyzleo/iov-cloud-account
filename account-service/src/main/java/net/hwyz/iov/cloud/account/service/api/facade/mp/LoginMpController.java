@@ -2,7 +2,7 @@ package net.hwyz.iov.cloud.account.service.api.facade.mp;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.hwyz.iov.cloud.account.api.contract.response.MobileLoginResponse;
+import net.hwyz.iov.cloud.account.api.contract.response.LoginMpResponse;
 import net.hwyz.iov.cloud.account.api.feign.mp.LoginMpApi;
 import net.hwyz.iov.cloud.account.service.application.service.LoginAppService;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
@@ -38,10 +38,10 @@ public class LoginMpController implements LoginMpApi {
 
     @Override
     @PostMapping(value = "/verifyCodeLogin")
-    public Response<MobileLoginResponse> verifyCodeLogin(@RequestHeader String clientId, @RequestParam String countryRegionCode,
-                                                         @RequestParam String mobile, @RequestParam String verifyCode) {
+    public Response<LoginMpResponse> verifyCodeLogin(@RequestHeader String clientId, @RequestParam String countryRegionCode,
+                                                     @RequestParam String mobile, @RequestParam String verifyCode) {
         logger.info("手机客户端[{}]通过验证码[{}]登录手机账号[{}:{}]", clientId, verifyCode, countryRegionCode, mobile);
-        MobileLoginResponse loginResponse = loginAppService.mobileVerifyCodeLogin(clientId,
+        LoginMpResponse loginResponse = loginAppService.mobileVerifyCodeLogin(clientId,
                 CountryRegion.valOf(countryRegionCode), mobile, verifyCode);
         return new Response<>(loginResponse);
     }

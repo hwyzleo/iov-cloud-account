@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-public class MobileLoginResponse extends LoginResponse{
+public class LoginMpResponse extends LoginResponse{
 
     /**
      * 手机号

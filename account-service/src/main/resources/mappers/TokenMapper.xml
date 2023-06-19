@@ -16,7 +16,7 @@
         <result column="client_id" property="clientId" />
         <result column="vin" property="vin" />
         <result column="scope" property="scope" />
-        <result column="token_type" property="tokenType" />
+        <result column="client_type" property="clientType" />
         <result column="issue_time" property="issueTime" />
         <result column="access_token" property="accessToken" />
         <result column="access_token_expires" property="accessTokenExpires" />
@@ -26,18 +26,18 @@
 
     <!-- 通用查询结果列 -->
     <sql id="baseColumnList">
-        id, uid, client_id, vin, scope, token_type, issue_time, access_token, access_token_expires, refresh_token, refresh_token_expires, 
+        id, uid, client_id, vin, scope, client_type, issue_time, access_token, access_token_expires, refresh_token, refresh_token_expires,
         description, create_time, create_by, modify_time, modify_by, row_version, is_valid
     </sql>
 
     <!-- 插入 -->
     <insert id="insertPo" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tb_token (
-            id, uid, client_id, vin, scope, token_type, issue_time, access_token, access_token_expires, refresh_token, refresh_token_expires, 
+            id, uid, client_id, vin, scope, client_type, issue_time, access_token, access_token_expires, refresh_token, refresh_token_expires,
             description, create_time, create_by, modify_time, modify_by, row_version, is_valid
         )
         VALUES (
-            #{id}, #{uid}, #{clientId}, #{vin}, #{scope}, #{tokenType}, #{issueTime}, #{accessToken}, #{accessTokenExpires}, #{refreshToken}, #{refreshTokenExpires}, 
+            #{id}, #{uid}, #{clientId}, #{vin}, #{scope}, #{clientType}, #{issueTime}, #{accessToken}, #{accessTokenExpires}, #{refreshToken}, #{refreshTokenExpires},
             #{description}, now(), #{createBy}, now(), #{modifyBy}, 1, 1
         )
     </insert>
@@ -45,13 +45,13 @@
     <!-- 批量插入 -->
     <insert id="batchInsertPo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
         INSERT INTO tb_token (
-            id, uid, client_id, vin, scope, token_type, issue_time, access_token, access_token_expires, refresh_token, refresh_token_expires, 
+            id, uid, client_id, vin, scope, client_type, issue_time, access_token, access_token_expires, refresh_token, refresh_token_expires,
             description, create_time, create_by, modify_time, modify_by, row_version, is_valid
         )
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
         (
-            #{item.id}, #{item.uid}, #{item.clientId}, #{item.vin}, #{item.scope}, #{item.tokenType}, #{item.issueTime}, #{item.accessToken}, #{item.accessTokenExpires}, #{item.refreshToken}, #{item.refreshTokenExpires}, 
+            #{item.id}, #{item.uid}, #{item.clientId}, #{item.vin}, #{item.scope}, #{item.clientType}, #{item.issueTime}, #{item.accessToken}, #{item.accessTokenExpires}, #{item.refreshToken}, #{item.refreshTokenExpires},
             #{item.description}, now(), #{item.createBy}, now(), #{item.modifyBy}, 1, 1
         )
         </foreach>
@@ -72,8 +72,8 @@
         <if test="scope != null and scope != ''">
             t.scope = #{scope},
         </if>
-        <if test="tokenType != null and tokenType != ''">
-            t.token_type = #{tokenType},
+        <if test="clientType != null and clientType != ''">
+            t.client_type = #{clientType},
         </if>
         <if test="issueTime != null">
             t.issue_time = #{issueTime},
@@ -144,8 +144,8 @@
         <if test="scope != null and scope != ''">
             AND t.scope = #{scope}
         </if>
-        <if test="tokenType != null and tokenType != ''">
-            AND t.token_type = #{tokenType}
+        <if test="clientType != null and clientType != ''">
+            AND t.client_type = #{clientType}
         </if>
         <if test="issueTime != null">
             AND t.issue_time = #{issueTime}
