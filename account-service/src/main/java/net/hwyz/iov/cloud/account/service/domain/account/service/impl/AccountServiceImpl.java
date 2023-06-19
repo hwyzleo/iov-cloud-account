@@ -9,6 +9,8 @@ import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
 import net.hwyz.iov.cloud.account.service.domain.factory.AccountFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * 账号领域服务接口实现类
  *
@@ -31,5 +33,11 @@ public class AccountServiceImpl implements AccountService {
             repository.save(newAccountDo);
             return newAccountDo;
         });
+    }
+
+    @Override
+    public Optional<AccountDo> get(String uid) {
+        logger.info("根据UID[{}]获取账号", uid);
+        return repository.getByUid(uid);
     }
 }

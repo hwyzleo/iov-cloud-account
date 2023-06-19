@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import net.hwyz.iov.cloud.account.service.domain.account.model.AccountDo;
 import net.hwyz.iov.cloud.account.service.domain.account.repository.AccountRepository;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
+import net.hwyz.iov.cloud.account.service.infrastructure.cache.CacheService;
 import net.hwyz.iov.cloud.account.service.infrastructure.repository.assembler.AccountPoAssembler;
 import net.hwyz.iov.cloud.account.service.infrastructure.repository.dao.AccountDao;
 import net.hwyz.iov.cloud.account.service.infrastructure.repository.po.AccountPo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class AccountRepositoryImpl extends AbstractRepository<Long, AccountDo> implements AccountRepository {
 
     final AccountDao accountDao;
+    final CacheService cacheService;
 
     @Override
     public Optional<AccountDo> getByMobile(CountryRegion countryRegion, String mobile) {
@@ -42,6 +45,22 @@ public class AccountRepositoryImpl extends AbstractRepository<Long, AccountDo> i
     }
 
     @Override
+    public Optional<AccountDo> getByUid(String uid) {
+        AccountPo accountPo = cacheService.getAccount(uid).orElseGet(() -> {
+            List<AccountPo> accountPoList = accountDao.selectPoByExample(AccountPo.builder().uid(uid).build());
+            if (accountPoList.isEmpty()) {
+                return null;
+            }
+            cacheService.setAccount(accountPoList.get(0));
+            return accountPoList.get(0);
+        });
+        if (accountPo != null) {
+            return Optional.of(AccountPoAssembler.INSTANCE.toDo(accountPo));
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<AccountDo> getById(Long aLong) {
         return Optional.empty();
     }
@@ -52,7 +71,11 @@ public class AccountRepositoryImpl extends AbstractRepository<Long, AccountDo> i
             logger.debug("保存账号领域对象[{}]", JSONUtil.parse(accountDo).toJSONString(0));
         }
         switch (accountDo.getState()) {
-            case NEW -> accountDao.insertPo(AccountPoAssembler.INSTANCE.fromDo(accountDo));
+            case NEW -> {
+                AccountPo accountPo = AccountPoAssembler.INSTANCE.fromDo(accountDo);
+                accountDao.insertPo(accountPo);
+                cacheService.setAccount(accountPo);
+            }
             default -> {
                 return false;
             }

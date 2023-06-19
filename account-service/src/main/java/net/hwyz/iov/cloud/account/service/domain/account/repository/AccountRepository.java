@@ -22,4 +22,12 @@ public interface AccountRepository extends BaseRepository<Long, AccountDo> {
      */
     Optional<AccountDo> getByMobile(CountryRegion countryRegion, String mobile);
 
+    /**
+     * 根据UID获取领域对象
+     *
+     * @param uid 账号唯一ID
+     * @return 领域对象
+     */
+    Optional<AccountDo> getByUid(String uid);
+
 }

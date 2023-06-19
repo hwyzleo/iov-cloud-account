@@ -2,7 +2,6 @@ package net.hwyz.iov.cloud.account.api.feign.service;
 
 import net.hwyz.iov.cloud.account.api.contract.UserIdentity;
 import net.hwyz.iov.cloud.account.api.contract.request.AuthenticationRequest;
-import net.hwyz.iov.cloud.framework.commons.enums.ClientType;
 
 /**
  * 令牌相关服务接口

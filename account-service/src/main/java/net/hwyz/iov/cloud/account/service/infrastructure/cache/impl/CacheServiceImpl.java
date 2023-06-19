@@ -5,6 +5,7 @@ import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import net.hwyz.iov.cloud.account.service.domain.contract.enums.CountryRegion;
 import net.hwyz.iov.cloud.account.service.infrastructure.cache.CacheService;
+import net.hwyz.iov.cloud.account.service.infrastructure.repository.po.AccountPo;
 import net.hwyz.iov.cloud.account.service.infrastructure.repository.po.LoginPo;
 import net.hwyz.iov.cloud.account.service.infrastructure.repository.po.TokenPo;
 import net.hwyz.iov.cloud.framework.commons.enums.ClientType;
@@ -32,6 +33,10 @@ public class CacheServiceImpl implements CacheService {
      * Redis Key前缀：令牌
      */
     private static final String REDIS_KEY_PREFIX_TOKEN = "account:token:";
+    /**
+     * Redis Key前缀：账号
+     */
+    private static final String REDIS_KEY_PREFIX_ACCOUNT = "account:acc:";
 
     @Override
     public Optional<LoginPo> getMobileLogin(CountryRegion countryRegion, String mobile) {
@@ -61,5 +66,19 @@ public class CacheServiceImpl implements CacheService {
     public void setToken(TokenPo tokenPo) {
         redisTemplate.opsForValue().set(REDIS_KEY_PREFIX_TOKEN + tokenPo.getClientType() + ":" + tokenPo.getAccessToken(),
                 JSONUtil.parse(tokenPo).toJSONString(0));
+    }
+
+    @Override
+    public Optional<AccountPo> getAccount(String uid) {
+        String accountJson = redisTemplate.opsForValue().get(REDIS_KEY_PREFIX_ACCOUNT + uid);
+        if (StrUtil.isNotBlank(accountJson)) {
+            return Optional.of(JSONUtil.toBean(accountJson, AccountPo.class));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void setAccount(AccountPo accountPo) {
+        redisTemplate.opsForValue().set(REDIS_KEY_PREFIX_ACCOUNT + accountPo.getUid(), JSONUtil.parse(accountPo).toJSONString(0));
     }
 }
