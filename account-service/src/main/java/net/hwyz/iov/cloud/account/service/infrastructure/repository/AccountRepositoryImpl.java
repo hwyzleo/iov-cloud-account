@@ -55,7 +55,9 @@ public class AccountRepositoryImpl extends AbstractRepository<Long, AccountDo> i
             return accountPoList.get(0);
         });
         if (accountPo != null) {
-            return Optional.of(AccountPoAssembler.INSTANCE.toDo(accountPo));
+            AccountDo accountDo = AccountPoAssembler.INSTANCE.toDo(accountPo);
+            accountDo.stateLoad();
+            return Optional.of(accountDo);
         }
         return Optional.empty();
     }
@@ -74,6 +76,11 @@ public class AccountRepositoryImpl extends AbstractRepository<Long, AccountDo> i
             case NEW -> {
                 AccountPo accountPo = AccountPoAssembler.INSTANCE.fromDo(accountDo);
                 accountDao.insertPo(accountPo);
+                cacheService.setAccount(accountPo);
+            }
+            case CHANGED -> {
+                AccountPo accountPo = AccountPoAssembler.INSTANCE.fromDo(accountDo);
+                accountDao.updatePo(accountPo);
                 cacheService.setAccount(accountPo);
             }
             default -> {

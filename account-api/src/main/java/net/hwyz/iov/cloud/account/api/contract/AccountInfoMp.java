@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 手机端账户信息
+ * 手机端账号信息
  *
  * @author hwyz_leo
  */
@@ -24,5 +24,13 @@ public class AccountInfoMp {
      * 昵称
      */
     private String nickname;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 性别
+     */
+    private String gender;
 
 }

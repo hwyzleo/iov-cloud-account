@@ -2,10 +2,13 @@ package net.hwyz.iov.cloud.account.service.infrastructure.repository.assembler;
 
 import net.hwyz.iov.cloud.account.service.domain.account.model.AccountDo;
 import net.hwyz.iov.cloud.account.service.infrastructure.repository.po.AccountPo;
+import net.hwyz.iov.cloud.framework.commons.enums.Gender;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+
+import static net.hwyz.iov.cloud.framework.commons.enums.Gender.MALE;
 
 /**
  * 账号数据对象转换类
@@ -23,7 +26,9 @@ public interface AccountPoAssembler {
      * @param accountPo 数据对象
      * @return 领域对象
      */
-    @Mappings({})
+    @Mappings({
+            @Mapping(target = "gender", expression = "java(net.hwyz.iov.cloud.framework.commons.enums.Gender.valueOf(accountPo.getGender()))")
+    })
     AccountDo toDo(AccountPo accountPo);
 
     /**

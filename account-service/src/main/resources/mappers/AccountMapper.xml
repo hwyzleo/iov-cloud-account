@@ -85,11 +85,11 @@
         <if test="description != null and description != ''">
             t.description = #{description},
         </if>
-        <if test="updateBy != null">
+        <if test="modifyBy != null">
             t.modify_by = #{modifyBy},
         </if>
         t.row_version = t.row_version + 1,
-        t.modify_date = now()
+        t.modify_time = now()
         WHERE id = #{id}
     </update>
 
@@ -97,7 +97,7 @@
     <update id="logicalDeletePo" parameterType="Long">
         UPDATE tb_account t SET
         t.row_version = t.row_version + 1,
-        t.modify_date = now(),
+        t.modify_time = now(),
         t.is_valid = 0
         WHERE t.id = #{value}
     </update>
