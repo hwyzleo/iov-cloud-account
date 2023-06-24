@@ -23,6 +23,7 @@
 
     <properties>
         <account.version>0.0.1-SNAPSHOT</account.version>
+        <oss.version>0.0.1-SNAPSHOT</oss.version>
     </properties>
 
     <dependencies>

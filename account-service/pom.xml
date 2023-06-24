@@ -24,6 +24,11 @@
             <artifactId>account-api</artifactId>
             <version>${account.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.hwyz.iov.cloud</groupId>
+            <artifactId>oss-api</artifactId>
+            <version>${oss.version}</version>
+        </dependency>
 
         <!-- MySQL相关 -->
         <dependency>

@@ -2,6 +2,7 @@ package net.hwyz.iov.cloud.account.service.domain.account.model;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import net.hwyz.iov.cloud.account.service.domain.contract.BaseDo;
@@ -50,6 +51,11 @@ public class AccountDo extends BaseDo<Long> {
         gender = Gender.UNKNOWN;
         nickname = "用户" + RandomUtil.randomNumbers(8);
         stateInit();
+    }
+
+    public void modifyAvatar(String avatar) {
+        this.avatar = avatar;
+        stateChange();
     }
 
     public void modifyNickname(String nickname) {

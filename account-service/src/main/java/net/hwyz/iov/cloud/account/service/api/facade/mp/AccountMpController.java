@@ -7,6 +7,7 @@ import net.hwyz.iov.cloud.account.api.contract.AccountInfoMp;
 import net.hwyz.iov.cloud.account.api.feign.mp.AccountMpApi;
 import net.hwyz.iov.cloud.account.service.application.service.AccountAppService;
 import net.hwyz.iov.cloud.framework.commons.bean.Response;
+import net.hwyz.iov.cloud.oss.api.contract.PreSignedUrl;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,13 +32,33 @@ public class AccountMpController implements AccountMpApi {
     }
 
     @Override
+    @PostMapping("/action/generateAvatarUrl")
+    public Response<PreSignedUrl> generateAvatarUrl(@RequestHeader String clientId, @RequestHeader String uid) {
+        logger.info("手机客户端[{}]生成账号[{}]头像上传地址", clientId, uid);
+        return new Response<>(accountAppService.generateAvatarUrl(uid));
+    }
+
+    @Override
+    @PostMapping(
+            value = "/action/modifyAvatar",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Response<Void> modifyAvatar(@RequestHeader String clientId, @RequestHeader String uid,
+                                       @RequestParam String avatar) {
+        logger.info("手机客户端[{}]修改账号[{}]头像", clientId, uid);
+        accountAppService.modifyMpAccountInfo(uid, MapUtil.of("avatar", avatar));
+        return new Response<>();
+    }
+
+    @Override
     @PostMapping(
             value = "/action/modifyNickname",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response<Void> modifyAccountInfo(@RequestHeader String clientId, @RequestHeader String uid,
-                                            @RequestParam String nickname) {
+    public Response<Void> modifyNickname(@RequestHeader String clientId, @RequestHeader String uid,
+                                         @RequestParam String nickname) {
         logger.info("手机客户端[{}]修改账号[{}]昵称[{}]", clientId, uid, nickname);
         accountAppService.modifyMpAccountInfo(uid, MapUtil.of("nickname", nickname));
         return new Response<>();
